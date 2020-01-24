@@ -1,49 +1,35 @@
+WINNING_CONDITIONS = [
+	[7, 8, 9], [4, 5, 6], [1, 2, 3], # lines
+	[7, 4, 1], [8, 5, 2], [9, 6, 3], # columns
+	[7, 5, 3], [9, 5, 1] 			 # diagonals
+]
+
 # Prints the board
 def print_board(moves):
     print(
-        f"{moves[7]} | {moves[8]} | {moves[9]}"
+        f" {moves[7]} | {moves[8]} | {moves[9]}"
         "\n-----------\n"
-        f"{moves[4]} | {moves[5]} | {moves[6]}"
+        f" {moves[4]} | {moves[5]} | {moves[6]}"
         "\n-----------\n"
-        f"{moves[1]} | {moves[2]} | {moves[3]}"
+        f" {moves[1]} | {moves[2]} | {moves[3]}"
     )
 
 
 # Checks winning condition
 def check_win(moves, letter):
-    if moves[7] == letter and moves[8] == letter and moves[9] == letter:
-        return True
-    if moves[4] == letter and moves[5] == letter and moves[6] == letter:
-        return True
-    if moves[1] == letter and moves[2] == letter and moves[3] == letter:
-        return True
-
-    if moves[7] == letter and moves[4] == letter and moves[1] == letter:
-        return True
-    if moves[8] == letter and moves[5] == letter and moves[2] == letter:
-        return True
-    if moves[9] == letter and moves[6] == letter and moves[3] == letter:
-        return True
-
-    if moves[7] == letter and moves[5] == letter and moves[3] == letter:
-        return True
-    if moves[9] == letter and moves[5] == letter and moves[1] == letter:
-        return True
-    else:
-        return False
+    return any(all(moves[i] == letter for i in x) for x in WINNING_CONDITIONS)
 
 
 def ask_to_play_again():
-    while True:
-        answer = input("\n\nDo you want to play again (Y/N)? ")
-        if answer == "N" or answer == "n":
-            print("\nThank you for playing!")
-            return False
-        elif answer == "Y" or answer == "y":
-            print("\n")
-            return True
-        else:
-            print("Please, input a valid answer")
+	answer = input("\n\nDo you want to play again (Y/N)? ")
+	if answer.lower() == "n":
+		print("\nThank you for playing!")
+		return False
+	elif answer.lower() == "y":
+		print("\n")
+		return True
+	else:
+		print("Please, input a valid answer")
 
 
 def print_instructions():
@@ -65,7 +51,6 @@ def print_game_score(score):
 
 # Starting the game
 def start_game():
-
     score = [0, 0]
     while True:
 
